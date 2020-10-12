@@ -1,0 +1,13 @@
+obj-m := Ex3_code.o 
+
+# Set these variables to the appropriate values for your target etc.
+KDIR  := /home/<user>/<target>/exfiles/ex2/kernel/ 
+ARCH := arm
+CROSS_COMPILE := arm-poky-linux-gnueabi-
+PWD   := $(shell pwd)
+
+default:
+	make -C $(KDIR) M=$(PWD) modules
+
+clean:
+	rm -rf *o

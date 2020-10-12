@@ -1,0 +1,26 @@
+
+CC=gcc
+AR=ar
+CFLAGS=-Wall -g
+ARFLAGS=-q
+EXECUTABLE=main.out
+LIB=sums
+OBJECTS=add.o take.o
+
+all: $(EXECUTABLE)
+
+$(EXECUTABLE):  $(LIB) $(OBJECTS) 
+	$(CC) $(CFLAGS) main.c -L$(PWD) -l$(LIB) -o $@
+
+$(LIB) : $(OBJECTS)
+	$(AR) $(ARFLAGS) lib$(LIB).a $(OBJECTS)
+
+add.o :
+	$(CC) $(CFLAGS) -c add.c
+
+take.o : 
+	$(CC) $(CFLAGS) -c take.c
+
+clean: 
+	rm -rf *.o *.a $(EXECUTABLE)
+

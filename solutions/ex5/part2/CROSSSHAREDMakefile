@@ -1,0 +1,27 @@
+# These can be set to the values defined by the toolchain
+# or can be inherited from the shell environment
+# CC=
+# AR=
+
+CFLAGS=-Wall -g
+EXECUTABLE=main.out
+LIB=sums
+OBJECTS=add.o take.o
+
+all: $(EXECUTABLE)
+
+$(EXECUTABLE):  $(LIB) $(OBJECTS) 
+	$(CC) $(CFLAGS) main.c -L$(PWD) -l$(LIB) -o $@
+
+$(LIB) : $(OBJECTS)
+	$(CC) -shared -o lib$(LIB).so $(OBJECTS)
+
+add.o :
+	$(CC) $(CFLAGS) -fPIC -c add.c
+
+take.o : 
+	$(CC) $(CFLAGS) -fPIC -c take.c
+
+clean: 
+	rm -rf *.o *.so $(EXECUTABLE)
+
