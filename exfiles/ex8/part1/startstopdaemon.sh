@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-PIDFILE=/var/run/startdaemon.pid
+PIDFILE=/var/run/startstopdaemon.pid
 DAEMON=/home/root/logdaemon.sh
 
 case "$1" in
