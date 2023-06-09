@@ -1,9 +1,8 @@
-# These can be set to the values defined by the toolchain
-# or can be inherited from the shell environment
-# CC=
-# AR=
 
+CC=arm-poky-linux-gnueabi-gcc -march=armv5e -marm --sysroot=/opt/DwEL/poky/qemu/2.3.3/sysroots/armv5e-poky-linux-gnueabi
+#AR=arm-poky-linux-gnueabi-ar
 CFLAGS=-Wall -g
+ARFLAGS=-q
 EXECUTABLE=main.out
 LIB=sums
 OBJECTS=add.o take.o
@@ -14,7 +13,8 @@ $(EXECUTABLE):  $(LIB) $(OBJECTS)
 	$(CC) $(CFLAGS) main.c -L$(PWD) -l$(LIB) -o $@
 
 $(LIB) : $(OBJECTS)
-	$(CC) -shared -o lib$(LIB).so $(OBJECTS)
+	$(CC) -Wl,-soname=lib$(LIB).so.1 -shared -o lib$(LIB).so.1.1 $(OBJECTS)
+	ln -s lib$(LIB).so.1.1 lib$(LIB).so
 
 add.o :
 	$(CC) $(CFLAGS) -fPIC -c add.c
@@ -23,5 +23,5 @@ take.o :
 	$(CC) $(CFLAGS) -fPIC -c take.c
 
 clean: 
-	rm -rf *.o *.so $(EXECUTABLE)
+	rm -rf *.o *.a $(EXECUTABLE)
 
