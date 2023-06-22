@@ -36,7 +36,7 @@ void  ChildProcess(void)
 
      for (i = 0; i < MAX_COUNT; i++)
      {
-         printf("Child process, word %d is \"%s\"\n", (i+1), ptr);
+         printf("Child process, word %d is \"%s\"\n", (i+1), (char *) ptr);
          sleep(1);
      }
      printf("   *** Child process is done ***\n");
